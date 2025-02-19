@@ -47,7 +47,7 @@ public class LoginToPage {
 
 		System.out.println("Message: " +headerMessage);
 
-		assertEquals(headerMessage,"Thank you for your order!");
+		assertEquals("Thank you for your order!", headerMessage);
 
 		checkoutCompletePage.backHome();
 
