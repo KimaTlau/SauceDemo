@@ -1,5 +1,6 @@
 package com.saucedemo.pages;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -7,11 +8,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class ProductsPage {
 
 	WebDriver driver;
+
+	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
 	public ProductsPage(WebDriver ldriver) {
 
@@ -20,8 +25,6 @@ public class ProductsPage {
 
 
 	}
-
-	//List<WebElement> items = driver.findElements(By.className("inventory_item"));
 
 	@FindBy(xpath = "//*[@id=\"add-to-cart-sauce-labs-backpack\"]")
 	WebElement backpack;
@@ -47,20 +50,29 @@ public class ProductsPage {
 
 	public void addtoCart() {
 
-			/*for (WebElement item : items) {
-				WebElement addToCartButton = item.findElement(By.xpath("//button[text='Add to Cart']"));
-				addToCartButton.click();
-			}
-		}*/
         try {
+
+			Thread.sleep(2000);
+
+			wait.until(ExpectedConditions.visibilityOf(backpack));
             backpack.click();
+
+			wait.until(ExpectedConditions.visibilityOf(bikeLight));
             bikeLight.click();
+
+			wait.until(ExpectedConditions.visibilityOf(tShirt));
             tShirt.click();
+
+			wait.until(ExpectedConditions.visibilityOf(fleeceJacket));
             fleeceJacket.click();
+
+			wait.until(ExpectedConditions.visibilityOf(oneSie));
             oneSie.click();
+
+			wait.until(ExpectedConditions.visibilityOf(tshirtRed));
             tshirtRed.click();
-        } catch (NullPointerException e) {
-			System.out.println("Add To cart Failed" +e);
+        } catch (Exception e) {
+			System.out.println("Over Time - Add To cart Failed" +e.getMessage());
         }
 
     }
@@ -68,9 +80,13 @@ public class ProductsPage {
 	public void goTocart(){
 
         try {
+
+			Thread.sleep(2000);
+
+			wait.until(ExpectedConditions.visibilityOf(cart));
             cart.click();
-        } catch (NullPointerException e) {
-			System.out.println("Element not Found" +e);
+        } catch (Exception e) {
+			System.out.println("Over Time - Element not Found" +e.getMessage());
         }
 
     }

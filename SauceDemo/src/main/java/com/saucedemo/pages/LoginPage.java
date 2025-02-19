@@ -4,10 +4,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginPage {
 
 	WebDriver driver;
+
+	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
 	@FindBy(id = "user-name")
 	WebElement userName;
@@ -27,13 +33,26 @@ public class LoginPage {
 
 	public void loginToSauceDemo(String username, String pass) {
 
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
 
-        try {
+		}
+
+		try {
+
+			wait.until(ExpectedConditions.visibilityOf(userName));
             userName.sendKeys(username);
+
+			wait.until(ExpectedConditions.visibilityOf(passWord));
             passWord.sendKeys(pass);
+
+			Thread.sleep(2000);
+
+			wait.until(ExpectedConditions.visibilityOf(loginButton));
             loginButton.click();
-        } catch (NullPointerException e) {
-            System.out.println("Login Failed: " +e.getMessage());
+        } catch ( Exception e) {
+            System.out.println("Over Time - Login Failed: " +e.getMessage());
         }
 
     }

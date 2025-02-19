@@ -16,17 +16,14 @@ public class CheckoutCompletePage {
 
 	WebDriver driver;
 
+	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
 	public CheckoutCompletePage(WebDriver ldriver) {
 
         this.driver = ldriver;
 		PageFactory.initElements(driver, this);
 
 	}
-
-	/*WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-	WebElement headerElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[@data-test='complete-header']")));
-*/
-
 
 	@FindBy(xpath = "//h2[@data-test=\"complete-header\"]")
 	WebElement headerElement;
@@ -47,9 +44,11 @@ public class CheckoutCompletePage {
 
 
         try {
+
+			wait.until(ExpectedConditions.visibilityOf(headerElement));
             headerMessage = headerElement.getText();
         } catch (Exception e) {
-			System.out.println("Not Found" +e.getMessage());
+			System.out.println("Over Time - Element Not Found" +e.getMessage());
         }
 
         return headerMessage;
@@ -59,9 +58,13 @@ public class CheckoutCompletePage {
 	public void backHome() {
 
         try {
+
+			Thread.sleep(2000);
+
+			wait.until(ExpectedConditions.visibilityOf(homeButton));
             homeButton.click();
         } catch (Exception e) {
-			System.out.println("Not Found" +e.getMessage());
+			System.out.println("Over Time - Element Not Found" +e.getMessage());
         }
 
     }
