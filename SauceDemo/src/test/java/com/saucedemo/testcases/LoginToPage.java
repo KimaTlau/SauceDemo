@@ -1,6 +1,7 @@
 package com.saucedemo.testcases;
 
 import com.saucedemo.pages.*;
+import com.saucedemo.utility.BaseClass;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
@@ -14,7 +15,6 @@ import static org.testng.AssertJUnit.assertEquals;
 public class LoginToPage {
 
 	WebDriver driver;
-
 
 	@Test
 	public void loginAndCheckout() {

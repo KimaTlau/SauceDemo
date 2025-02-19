@@ -1,5 +1,0 @@
-com\saucedemo\testcases\SauceDemo2.class
-com\saucedemo\testcases\LoginToPage.class
-com\saucedemo\stepdefs\LoginToPageStepDefs.class
-com\saucedemo\utility\BrowserFactory.class
-runner\TestRunner.class

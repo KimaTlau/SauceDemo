@@ -3,7 +3,7 @@ package com.saucedemo.utility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 public class BrowserFactory {
 
@@ -11,15 +11,14 @@ public class BrowserFactory {
 
 		System.setProperty("webdriver.chrome.driver", "./Drivers/chromedriver.exe");
 		driver = new ChromeDriver();
-		driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
-
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
 
 
 		driver.manage().window().maximize();
 
 		driver.get(url);
 
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
 		return driver;
 	}
