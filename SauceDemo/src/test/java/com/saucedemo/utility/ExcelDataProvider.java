@@ -12,7 +12,7 @@ public class ExcelDataProvider {
 
     public ExcelDataProvider() {
 
-        File src = new File("src/TestData/TestData.xlsx");
+        File src = new File("./TestData/TestData.xlsx");
 
         try {
             FileInputStream fis = new FileInputStream(src);

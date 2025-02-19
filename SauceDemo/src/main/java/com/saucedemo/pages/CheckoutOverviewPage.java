@@ -18,7 +18,7 @@ public class CheckoutOverviewPage {
 
 	}
 	
-	JavascriptExecutor js = (JavascriptExecutor) driver;
+
 	
 	@FindBy(xpath = "//*[@id=\"finish\"]")
 	WebElement finishButton;
@@ -31,6 +31,8 @@ public class CheckoutOverviewPage {
 		} catch (InterruptedException e) {
 
 		}
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 
         try {
             js.executeScript("window.scrollTo(0, document.body.scrollHeight)");

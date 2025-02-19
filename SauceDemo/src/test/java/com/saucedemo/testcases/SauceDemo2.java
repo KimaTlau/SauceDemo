@@ -5,6 +5,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -20,45 +23,76 @@ public class SauceDemo2 {
 		System.setProperty("webdriver.chrome.driver", "./Drivers/chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 
-		driver.manage().timeouts().implicitlyWait(Duration.of(30, ChronoUnit.SECONDS));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+		//driver.manage().timeouts().implicitlyWait(Duration.of(30, ChronoUnit.SECONDS));
 
 		driver.manage().window().maximize();
 		driver.get("https://www.saucedemo.com/");
 
-		driver.manage().timeouts().implicitlyWait(Duration.of(30, ChronoUnit.SECONDS));
+		//driver.manage().timeouts().implicitlyWait(Duration.of(30, ChronoUnit.SECONDS));
 
-		WebElement userName = driver.findElement(By.id("user-name"));
-		WebElement passWord = driver.findElement(By.id("password"));
-		WebElement loginButton = driver.findElement(By.id("login-button"));
+		//WebElement userName = driver.findElement(By.id("user-name"));
+		//WebElement passWord = driver.findElement(By.id("password"));
+		//WebElement loginButton = driver.findElement(By.id("login-button"));
+
+        WebElement userName = null;
+        WebElement passWord = null;
+        WebElement loginButton = null;
+        try {
+            userName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-name")));
+            passWord = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
+            loginButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-button")));
+        } catch (Exception e) {
+            System.out.println("Over Time" +e.getMessage());
+        }
 
 
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-
-		}
-		userName.sendKeys("standard_user");
+        userName.sendKeys("standard_user");
 		passWord.sendKeys("secret_sauce");
 		loginButton.click();
 
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e){
+		/*WebElement backpack = null;
+		WebElement bikelight = null;
+		WebElement boltTShirt = null;
+		WebElement fleeceJacket = null;
+		WebElement oneSie = null;
+		WebElement redTShirt = null;
+		WebElement cart = null;
 
-		}
+
+
+        try {
+			backpack = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"add-to-cart-sauce-labs-backpack\"]")));
+            bikelight =  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"add-to-cart-sauce-labs-bike-light\"]")));
+            boltTShirt =  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\\\"add-to-cart-sauce-labs-bolt-t-shirt\\\"]")));
+            fleeceJacket =  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\\\"add-to-cart-sauce-labs-fleece-jacket\\\"]")));
+            oneSie =  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"add-to-cart-sauce-labs-onesie\"]")));
+            redTShirt =  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"add-to-cart-test.allthethings()-t-shirt-(red)\"]")));
+            cart =  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"shopping_cart_container\"]/a")));
+        } catch (Exception e) {
+			System.out.println("Over Time" +e.getMessage());
+        }
+
+        try {
+            backpack.click();
+            bikelight.click();
+            boltTShirt.click();
+            fleeceJacket.click();
+            oneSie.click();
+            redTShirt.click();
+            cart.click();
+        } catch (Exception e) {
+			System.out.println("Over Time" +e.getMessage());
+        }*/
+
 
 		driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-backpack\"]")).click();
-
 		driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-bike-light\"]")).click();
-
 		driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-bolt-t-shirt\"]")).click();
-
 		driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-fleece-jacket\"]")).click();
-
 		driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-onesie\"]")).click();
-
 		driver.findElement(By.xpath("//*[@id=\"add-to-cart-test.allthethings()-t-shirt-(red)\"]")).click();
-
 		driver.findElement(By.xpath("//*[@id=\"shopping_cart_container\"]/a")).click();
 
 		try {

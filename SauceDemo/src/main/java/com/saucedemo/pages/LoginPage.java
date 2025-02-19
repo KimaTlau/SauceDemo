@@ -10,13 +10,13 @@ public class LoginPage {
 	WebDriver driver;
 
 	@FindBy(id = "user-name")
-	private WebElement userName;
+	WebElement userName;
 
 	@FindBy(id = "password")
-	private WebElement passWord;
+	WebElement passWord;
 
 	@FindBy(id = "login-button")
-	private WebElement loginButton;
+	WebElement loginButton;
 
 	public LoginPage(WebDriver ldriver) {
 
@@ -33,7 +33,7 @@ public class LoginPage {
             passWord.sendKeys(pass);
             loginButton.click();
         } catch (NullPointerException e) {
-            System.out.println("Login Failed" +e);
+            System.out.println("Login Failed: " +e.getMessage());
         }
 
     }

@@ -13,15 +13,19 @@ import java.util.Date;
 
 public class Helper {
 
-    public static void captureScreenShot(WebDriver driver) {
+    public static String captureScreenShot(WebDriver driver) {
 
         File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 
+        String screenShotPath = System.getProperty("user.dir")+"/Screenshots/"+getCurrentDateTime()+"screenshot.png";
+
         try {
-            FileHandler.copy(src, new File("src/Screenshots/"+getCurrentDateTime()+"screenshot.png"));
+            FileHandler.copy(src, new File(screenShotPath));
         } catch (Exception e) {
            System.out.println("Not able to capture screenshot" +e.getMessage());
         }
+
+        return screenShotPath;
     }
 
     public static String getCurrentDateTime(){
