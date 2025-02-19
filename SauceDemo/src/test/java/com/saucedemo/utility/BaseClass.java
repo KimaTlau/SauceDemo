@@ -4,8 +4,6 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
@@ -49,7 +47,7 @@ public class BaseClass {
 
         Reporter.log("Starting Browser and Application",true);
 
-        driver = BrowserFactory.startBrowser(driver,config.getUrl());
+        driver = BrowserFactory.startBrowser(config.getUrl());
 
         Reporter.log("Browser and Application started",true);
     }

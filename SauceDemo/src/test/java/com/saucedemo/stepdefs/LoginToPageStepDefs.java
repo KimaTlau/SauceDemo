@@ -14,11 +14,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
+import java.util.Objects;
 
 import static org.testng.Assert.assertEquals;
 
 public class LoginToPageStepDefs extends BaseClass {
-
 
 
     ProductsPage products = new ProductsPage(driver);
@@ -27,7 +27,6 @@ public class LoginToPageStepDefs extends BaseClass {
     CheckoutPage checkout = new CheckoutPage(driver);
     CheckoutOverviewPage overview = new CheckoutOverviewPage(driver);
     CheckoutCompletePage complete = new CheckoutCompletePage(driver);
-
 
     @Given("I log into the SauceDemo application with valid credentials")
     public void logIntoApplication() {

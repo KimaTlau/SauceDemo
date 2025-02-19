@@ -3,6 +3,7 @@ package com.saucedemo.testcases;
 import com.saucedemo.pages.*;
 import com.saucedemo.utility.BaseClass;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
 import com.saucedemo.utility.BrowserFactory;
@@ -19,7 +20,7 @@ public class LoginToPage {
 	@Test
 	public void loginAndCheckout() {
 
-		driver = BrowserFactory.startBrowser(driver,"https://www.saucedemo.com/");
+		driver = BrowserFactory.startBrowser("https://www.saucedemo.com/");
 
 		LoginPage loginPage = new LoginPage(driver);
 		ProductsPage productsPage = new ProductsPage(driver);
@@ -44,11 +45,15 @@ public class LoginToPage {
 
 		String headerMessage = checkoutCompletePage.getHeaderMessage();
 
+		System.out.println("Message: " +headerMessage);
+
 		assertEquals(headerMessage,"Thank you for your order!");
 
 		checkoutCompletePage.backHome();
 
 		BrowserFactory.quitBrowser(driver);
+
+		System.out.println("Test Completed!");
 	}
 
 }

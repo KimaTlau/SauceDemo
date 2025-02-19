@@ -7,10 +7,11 @@ import java.time.Duration;
 
 public class BrowserFactory {
 
-	public static WebDriver startBrowser(WebDriver driver, String url) {
+	public static WebDriver startBrowser(String url) {
 
 		System.setProperty("webdriver.chrome.driver", "./Drivers/chromedriver.exe");
-		driver = new ChromeDriver();
+		WebDriver driver = new ChromeDriver();
+
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
 
 
