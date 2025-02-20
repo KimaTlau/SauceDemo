@@ -12,8 +12,7 @@ public class BrowserFactory {
 		System.setProperty("webdriver.chrome.driver", "./Drivers/chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
-
+		//driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
 
 		driver.manage().window().maximize();
 

@@ -25,6 +25,7 @@ public class SauceDemo2 {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
 		driver.manage().window().maximize();
+
 		driver.get("https://www.saucedemo.com/");
 
         WebElement userName = null;
