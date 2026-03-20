@@ -15,15 +15,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ProductsPage {
 
 	WebDriver driver;
-
-	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+	WebDriverWait wait;
 
 	public ProductsPage(WebDriver ldriver) {
-
 		this.driver = ldriver;
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		PageFactory.initElements(driver, this);
-
-
 	}
 
 	@FindBy(xpath = "//*[@id=\"add-to-cart-sauce-labs-backpack\"]")

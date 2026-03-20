@@ -24,7 +24,11 @@ public class ExcelDataProvider {
     }
 
     public String getStringData(String sheetName, int row, int col) {
-        return wb.getSheet(sheetName).getRow(row).getCell(col).getStringCellValue();
+        org.apache.poi.ss.usermodel.Cell cell = wb.getSheet(sheetName).getRow(row).getCell(col);
+        if (cell.getCellType() == org.apache.poi.ss.usermodel.CellType.NUMERIC) {
+            return String.valueOf((int)cell.getNumericCellValue());
+        }
+        return cell.getStringCellValue();
     }
 
     public double getNumericData(String sheetName, int row, int col) {

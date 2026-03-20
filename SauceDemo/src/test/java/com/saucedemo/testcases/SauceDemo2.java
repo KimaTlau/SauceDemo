@@ -40,7 +40,7 @@ public class SauceDemo2 {
         }
 
 
-        userName.sendKeys("standard_user");
+        userName.sendKeys("visual_user");
 		passWord.sendKeys("secret_sauce");
 		loginButton.click();
 
@@ -61,10 +61,19 @@ public class SauceDemo2 {
 
 		driver.findElement(By.xpath("//*[@id=\"checkout\"]")).click();
 
-		WebElement fName = driver.findElement(By.id("first-name"));
-		WebElement lName = driver.findElement(By.id("last-name"));
-		WebElement postalCode = driver.findElement(By.id("postal-code"));
-		WebElement continueButton = driver.findElement(By.id("continue"));
+		WebElement fName = null;
+		WebElement lName = null;
+		WebElement postalCode = null;
+		WebElement continueButton = null;
+
+		try {
+			fName = driver.findElement(By.id("first-name"));
+			lName = driver.findElement(By.id("last-name"));
+			postalCode = driver.findElement(By.id("postal-code"));
+			continueButton = driver.findElement(By.id("continue"));
+		}catch (Exception e) {
+			System.out.println("Over Time" +e.getMessage());
+		}
 
 		fName.sendKeys("Kima");
 		lName.sendKeys("Tlau");

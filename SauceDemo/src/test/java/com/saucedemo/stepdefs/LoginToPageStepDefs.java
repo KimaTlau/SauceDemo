@@ -10,6 +10,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.testng.Reporter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -21,12 +22,45 @@ import static org.testng.Assert.assertEquals;
 public class LoginToPageStepDefs extends BaseClass {
 
 
-    ProductsPage products = new ProductsPage(driver);
-    LoginPage loginPage = new LoginPage(driver);
-    CartPage cartPage = new CartPage(driver);
-    CheckoutPage checkout = new CheckoutPage(driver);
-    CheckoutOverviewPage overview = new CheckoutOverviewPage(driver);
-    CheckoutCompletePage complete = new CheckoutCompletePage(driver);
+    ProductsPage products;
+    LoginPage loginPage;
+    CartPage cartPage;
+    CheckoutPage checkout;
+    CheckoutOverviewPage overview;
+    CheckoutCompletePage complete;
+
+    @Before
+    public void setupCucumber() {
+        Reporter.log("Starting the test execution", true);
+        excel = new ExcelDataProvider();
+        config = new ConfigDataProvider();
+
+        String reportPath = System.getProperty("user.dir") + "/Reports/" + Helper.getCurrentDateTime() + "TestReport.html";
+        ExtentSparkReporter extentSpark = new ExtentSparkReporter(new File(reportPath));
+        report = new ExtentReports();
+        report.attachReporter(extentSpark);
+
+        Reporter.log("Starting Browser and Application", true);
+        driver = BrowserFactory.startBrowser(config.getUrl());
+        Reporter.log("Browser and Application started", true);
+
+        products = new ProductsPage(driver);
+        loginPage = new LoginPage(driver);
+        cartPage = new CartPage(driver);
+        checkout = new CheckoutPage(driver);
+        overview = new CheckoutOverviewPage(driver);
+        complete = new CheckoutCompletePage(driver);
+    }
+
+    @After
+    public void tearDownCucumber() {
+        if (driver != null) {
+            BrowserFactory.quitBrowser(driver);
+        }
+        if (report != null) {
+            report.flush();
+        }
+    }
 
     @Given("I log into the SauceDemo application with valid credentials")
     public void logIntoApplication() {
@@ -47,7 +81,7 @@ public class LoginToPageStepDefs extends BaseClass {
 
     }
 
-    @Given("I proceed to the checkout overview page")
+    @When("I proceed to the checkout overview page")
     public void goToCart() {
 
         products.goTocart();
@@ -57,7 +91,7 @@ public class LoginToPageStepDefs extends BaseClass {
 
     }
 
-    @Given("I enter valid contact details")
+    @When("I enter valid contact details")
     public void enterDetails(){
 
         checkout.enterDetails(excel.getStringData("Login",1,2),excel.getStringData("Login",1,3),excel.getStringData("Login",1,4));
@@ -68,7 +102,7 @@ public class LoginToPageStepDefs extends BaseClass {
 
     }
 
-    @Given("I confirm my order details on the checkout review page")
+    @When("I confirm my order details on the checkout review page")
     public void checkoutReview(){
 
         overview.finishOrder();
@@ -87,8 +121,6 @@ public class LoginToPageStepDefs extends BaseClass {
         Helper.captureScreenShot(driver);
 
         complete.backHome();
-
-        report.flush();
 
     }
 }
