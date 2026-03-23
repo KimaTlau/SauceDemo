@@ -1,3 +1,4 @@
+com\saucedemo\utility\MailUtils.class
 com\saucedemo\utility\BrowserFactory.class
 com\saucedemo\utility\BaseClass.class
 com\saucedemo\testcases\SauceDemo2.class
@@ -5,5 +6,6 @@ com\saucedemo\utility\ConfigDataProvider.class
 com\saucedemo\testcases\LoginToPage.class
 com\saucedemo\stepdefs\LoginToPageStepDefs.class
 com\saucedemo\utility\ExcelDataProvider.class
+com\saucedemo\utility\MailUtils$1.class
 com\saucedemo\utility\Helper.class
 runner\TestRunner.class

@@ -9,6 +9,7 @@ import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
@@ -26,6 +27,8 @@ public class BaseClass {
 
     public ExtentTest logger;
 
+    public static String reportPath;
+
     @BeforeSuite
     public void setUpSuite(){
 
@@ -34,7 +37,10 @@ public class BaseClass {
         excel=new ExcelDataProvider();
         config = new ConfigDataProvider();
 
-        ExtentSparkReporter extent = new ExtentSparkReporter(new File(System.getProperty("user.dir") + "/Reports/"+Helper.getCurrentDateTime()+"TestReport.html"));
+        if (reportPath == null) {
+            reportPath = System.getProperty("user.dir") + "/Reports/"+Helper.getCurrentDateTime()+"TestReport.html";
+        }
+        ExtentSparkReporter extent = new ExtentSparkReporter(new File(reportPath));
         report = new ExtentReports();
         report.attachReporter(extent);
 
@@ -76,5 +82,23 @@ public class BaseClass {
         report.flush();
 
         Reporter.log("Test Completed and Report Generated!",true);
+    }
+
+    @AfterSuite
+    public void sendEmail() {
+        Reporter.log("Sending email with report...", true);
+        MailUtils.sendEmail(
+                config.getMailHost(),
+                config.getMailPort(),
+                config.getMailAuth(),
+                config.getMailStartTLS(),
+                config.getMailFrom(),
+                config.getMailPassword(),
+                config.getMailTo(),
+                "Test Automation Report - " + Helper.getCurrentDateTime(),
+                "Please find the attached test execution report.",
+                reportPath
+        );
+        Reporter.log("Email sent.", true);
     }
 }

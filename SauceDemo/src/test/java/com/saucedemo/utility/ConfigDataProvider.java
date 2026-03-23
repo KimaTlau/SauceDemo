@@ -28,7 +28,33 @@ public class ConfigDataProvider {
 
     public String getUrl() {
         return pro.getProperty("url");
+    }
 
+    public String getMailHost() {
+        return pro.getProperty("mail.smtp.host");
+    }
 
+    public String getMailPort() {
+        return pro.getProperty("mail.smtp.port");
+    }
+
+    public String getMailFrom() {
+        return pro.getProperty("mail.from");
+    }
+
+    public String getMailPassword() {
+        return pro.getProperty("mail.password");
+    }
+
+    public String getMailTo() {
+        return pro.getProperty("mail.to");
+    }
+
+    public String getMailAuth() {
+        return pro.getProperty("mail.smtp.auth");
+    }
+
+    public String getMailStartTLS() {
+        return pro.getProperty("mail.smtp.starttls.enable");
     }
 }

@@ -35,8 +35,10 @@ public class LoginToPageStepDefs extends BaseClass {
         excel = new ExcelDataProvider();
         config = new ConfigDataProvider();
 
-        String reportPath = System.getProperty("user.dir") + "/Reports/" + Helper.getCurrentDateTime() + "TestReport.html";
-        ExtentSparkReporter extentSpark = new ExtentSparkReporter(new File(reportPath));
+        if (BaseClass.reportPath == null) {
+            BaseClass.reportPath = System.getProperty("user.dir") + "/Reports/" + Helper.getCurrentDateTime() + "TestReport.html";
+        }
+        ExtentSparkReporter extentSpark = new ExtentSparkReporter(new File(BaseClass.reportPath));
         report = new ExtentReports();
         report.attachReporter(extentSpark);
 
@@ -59,7 +61,32 @@ public class LoginToPageStepDefs extends BaseClass {
         }
         if (report != null) {
             report.flush();
+            System.out.println("[DEBUG_LOG] Extent Report flushed to: " + BaseClass.reportPath);
+            try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
         }
+        
+        System.out.println("[DEBUG_LOG] Final BaseClass.reportPath before email: " + BaseClass.reportPath);
+        File reportFile = new File(BaseClass.reportPath);
+        if (reportFile.exists()) {
+            System.out.println("[DEBUG_LOG] Report file confirmed to exist: " + reportFile.length() + " bytes.");
+        } else {
+            System.err.println("[DEBUG_LOG] Report file DOES NOT EXIST at: " + BaseClass.reportPath);
+        }
+        
+        Reporter.log("Sending email with report from Cucumber...", true);
+        MailUtils.sendEmail(
+                config.getMailHost(),
+                config.getMailPort(),
+                config.getMailAuth(),
+                config.getMailStartTLS(),
+                config.getMailFrom(),
+                config.getMailPassword(),
+                config.getMailTo(),
+                "Cucumber Test Automation Report - " + Helper.getCurrentDateTime(),
+                "Please find the attached test execution report from Cucumber run.",
+                BaseClass.reportPath
+        );
+        Reporter.log("Email sent.", true);
     }
 
     @Given("I log into the SauceDemo application with valid credentials")
